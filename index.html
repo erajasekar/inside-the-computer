@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inside the Computer Guide</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">Inside the Computer</h1>
+            <nav class="nav">
+                <ul class="nav-list">
+                    <li><a href="#home" class="nav-link active" data-section="home">Home</a></li>
+                    <li><a href="#cpu" class="nav-link" data-section="cpu">CPU</a></li>
+                    <li><a href="#gpu" class="nav-link" data-section="gpu">GPU</a></li>
+                    <li><a href="#ram" class="nav-link" data-section="ram">RAM</a></li>
+                    <li><a href="#storage" class="nav-link" data-section="storage">Storage</a></li>
+                    <li><a href="#motherboard" class="nav-link" data-section="motherboard">Motherboard</a></li>
+                    <li><a href="#power" class="nav-link" data-section="power">Power Supply</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Home Section -->
+        <section id="home" class="section home-section active">
+            <div class="container">
+                <div class="hero">
+                    <div class="hero-content">
+                        <h1 class="hero-title">Inside the Computer Guide</h1>
+                        <p class="hero-subtitle">Explore the amazing parts that make your computer work!</p>
+                        <p class="hero-description">
+                            Ever wondered what's inside your computer? Join us on an exciting journey to discover 
+                            the incredible components that work together to bring your digital world to life!
+                        </p>
+                        <button class="explore-btn" onclick="showPCInterior()">
+                            <span>🔍 Start Exploring</span>
+                        </button>
+                    </div>
+                    <div class="hero-visual">
+                        <div class="motherboard-3d">
+                            <div class="motherboard">
+                                <div class="cpu-socket"></div>
+                                <div class="ram-slots">
+                                    <div class="ram-slot"></div>
+                                    <div class="ram-slot"></div>
+                                    <div class="ram-slot"></div>
+                                    <div class="ram-slot"></div>
+                                </div>
+                                <div class="expansion-slots">
+                                    <div class="expansion-slot"></div>
+                                    <div class="expansion-slot"></div>
+                                    <div class="expansion-slot"></div>
+                                </div>
+                                <div class="connectors">
+                                    <div class="connector"></div>
+                                    <div class="connector"></div>
+                                    <div class="connector"></div>
+                                </div>
+                            </div>
+                            <div class="explore-label">EXPLORE</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3D PC Interior Section -->
+        <section id="pc-interior" class="section pc-interior-section">
+            <div class="container">
+                <div class="pc-interior-header">
+                    <h2>Inside Your Computer</h2>
+                    <p>Click on any component to learn more about it!</p>
+                    <button class="back-btn" onclick="showSection('home')">← Back to Home</button>
+                </div>
+                
+                <div class="pc-case-container">
+                    <div class="pc-case">
+                        <!-- Case Frame -->
+                        <div class="case-frame">
+                            <div class="case-side-panel"></div>
+                            <div class="case-back-panel"></div>
+                            <div class="case-bottom"></div>
+                        </div>
+                        
+                        <!-- Motherboard -->
+                        <div class="mb-3d" data-component="motherboard">
+                            <div class="motherboard-base"></div>
+                            <div class="motherboard-circuits"></div>
+                        </div>
+                        
+                        <!-- CPU -->
+                        <div class="cpu-3d" data-component="cpu">
+                            <div class="cpu-body"></div>
+                            <div class="cpu-heatsink">
+                                <div class="heatsink-fins"></div>
+                                <div class="heatsink-fan">
+                                    <div class="fan-blade"></div>
+                                    <div class="fan-blade"></div>
+                                    <div class="fan-blade"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- RAM Sticks -->
+                        <div class="ram-3d" data-component="ram">
+                            <div class="ram-stick ram-stick-1"></div>
+                            <div class="ram-stick ram-stick-2"></div>
+                        </div>
+                        
+                        <!-- GPU -->
+                        <div class="gpu-3d" data-component="gpu">
+                            <div class="gpu-body"></div>
+                            <div class="gpu-fans">
+                                <div class="gpu-fan gpu-fan-1">
+                                    <div class="fan-blade"></div>
+                                    <div class="fan-blade"></div>
+                                    <div class="fan-blade"></div>
+                                </div>
+                                <div class="gpu-fan gpu-fan-2">
+                                    <div class="fan-blade"></div>
+                                    <div class="fan-blade"></div>
+                                    <div class="fan-blade"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Storage -->
+                        <div class="storage-3d" data-component="storage">
+                            <div class="ssd-drive"></div>
+                            <div class="hdd-drive"></div>
+                        </div>
+                        
+                        <!-- Power Supply -->
+                        <div class="psu-3d" data-component="power">
+                            <div class="psu-body"></div>
+                            <div class="psu-fan">
+                                <div class="fan-blade"></div>
+                                <div class="fan-blade"></div>
+                                <div class="fan-blade"></div>
+                            </div>
+                            <div class="psu-cables">
+                                <div class="cable cable-1"></div>
+                                <div class="cable cable-2"></div>
+                                <div class="cable cable-3"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Case Fans -->
+                        <div class="case-fans">
+                            <div class="case-fan front-fan">
+                                <div class="fan-blade"></div>
+                                <div class="fan-blade"></div>
+                                <div class="fan-blade"></div>
+                            </div>
+                            <div class="case-fan rear-fan">
+                                <div class="fan-blade"></div>
+                                <div class="fan-blade"></div>
+                                <div class="fan-blade"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Component Info Panel -->
+                    <div class="component-info-panel" id="component-info">
+                        <div class="info-content">
+                            <h3 id="component-title">Select a Component</h3>
+                            <p id="component-description">Click on any component in the PC to learn more about it!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CPU Section -->
+        <section id="cpu" class="section hardware-section">
+            <div class="container">
+                <div class="hardware-card">
+                    <div class="card-header">
+                        <div class="icon">🧠</div>
+                        <h2>CPU – The Brain of the Computer</h2>
+                    </div>
+                    <div class="card-content">
+                        <div class="description">
+                            <p>
+                                The CPU (Central Processing Unit) is like the brain of your computer! Just like your brain 
+                                controls everything you do, the CPU controls everything the computer does. It reads instructions 
+                                and tells all the other parts what to do.
+                            </p>
+                            <p>
+                                When you click on something, type a message, or play a game, the CPU is working super fast 
+                                to make it happen. Modern CPUs can do billions of calculations every single second!
+                            </p>
+                        </div>
+                        <div class="fun-fact-container">
+                            <button class="fun-fact-btn" onclick="toggleFunFact('cpu-fact')">
+                                💡 Fun Fact!
+                            </button>
+                            <div id="cpu-fact" class="fun-fact hidden">
+                                Did you know? Some CPUs are smaller than a coin but are more powerful than entire 
+                                computers from 30 years ago! The fastest CPUs can execute over 100 billion instructions per second!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- GPU Section -->
+        <section id="gpu" class="section hardware-section">
+            <div class="container">
+                <div class="hardware-card">
+                    <div class="card-header">
+                        <div class="icon">🎮</div>
+                        <h2>GPU – The Graphics Powerhouse</h2>
+                    </div>
+                    <div class="card-content">
+                        <div class="description">
+                            <p>
+                                The GPU (Graphics Processing Unit) is like an amazing artist that creates all the pictures 
+                                and videos you see on your screen! While the CPU is great at thinking, the GPU is fantastic 
+                                at drawing and making things look beautiful.
+                            </p>
+                            <p>
+                                Every time you watch a video, play a game, or even move your mouse cursor, the GPU is working 
+                                hard to make sure everything looks smooth and colorful. It's especially important for games 
+                                and creative work!
+                            </p>
+                        </div>
+                        <div class="fun-fact-container">
+                            <button class="fun-fact-btn" onclick="toggleFunFact('gpu-fact')">
+                                💡 Fun Fact!
+                            </button>
+                            <div id="gpu-fact" class="fun-fact hidden">
+                                A modern gaming GPU has thousands of tiny processors working together! While a CPU might 
+                                have 8-16 cores, a GPU can have over 2,000 cores all working at the same time!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- RAM Section -->
+        <section id="ram" class="section hardware-section">
+            <div class="container">
+                <div class="hardware-card">
+                    <div class="card-header">
+                        <div class="icon">⚡</div>
+                        <h2>RAM – The Computer's Short-Term Memory</h2>
+                    </div>
+                    <div class="card-content">
+                        <div class="description">
+                            <p>
+                                RAM (Random Access Memory) is like your computer's short-term memory! Just like you remember 
+                                what you had for breakfast this morning, RAM helps your computer remember what it's working 
+                                on right now.
+                            </p>
+                            <p>
+                                When you open a program or a game, it gets loaded into RAM so the computer can access it 
+                                super quickly. The more RAM you have, the more things your computer can remember and work 
+                                with at the same time!
+                            </p>
+                        </div>
+                        <div class="fun-fact-container">
+                            <button class="fun-fact-btn" onclick="toggleFunFact('ram-fact')">
+                                💡 Fun Fact!
+                            </button>
+                            <div id="ram-fact" class="fun-fact hidden">
+                                RAM is super fast but forgets everything when you turn off your computer! That's why you 
+                                need to save your work. Modern RAM can transfer data at speeds of over 25 GB per second!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Storage Section -->
+        <section id="storage" class="section hardware-section">
+            <div class="container">
+                <div class="hardware-card">
+                    <div class="card-header">
+                        <div class="icon">💾</div>
+                        <h2>Storage – The Computer's Long-Term Memory</h2>
+                    </div>
+                    <div class="card-content">
+                        <div class="description">
+                            <p>
+                                Storage is like your computer's long-term memory and filing cabinet all in one! This is where 
+                                your computer keeps all your photos, videos, games, and programs safe, even when it's turned off.
+                            </p>
+                            <p>
+                                There are two main types: Hard Disk Drives (HDDs) that spin like record players, and Solid 
+                                State Drives (SSDs) that have no moving parts and are super fast! SSDs make your computer 
+                                start up much quicker.
+                            </p>
+                        </div>
+                        <div class="fun-fact-container">
+                            <button class="fun-fact-btn" onclick="toggleFunFact('storage-fact')">
+                                💡 Fun Fact!
+                            </button>
+                            <div id="storage-fact" class="fun-fact hidden">
+                                A single modern SSD can hold over 1 million photos or 250,000 songs! The first computer 
+                                hard drive from 1956 was as big as two refrigerators but could only store 5MB of data!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Motherboard Section -->
+        <section id="motherboard" class="section hardware-section">
+            <div class="container">
+                <div class="hardware-card">
+                    <div class="card-header">
+                        <div class="icon">🔌</div>
+                        <h2>Motherboard – The Computer's Nervous System</h2>
+                    </div>
+                    <div class="card-content">
+                        <div class="description">
+                            <p>
+                                The motherboard is like the nervous system of your computer! Just like your nervous system 
+                                connects your brain to all parts of your body, the motherboard connects all the computer 
+                                parts together so they can talk to each other.
+                            </p>
+                            <p>
+                                It's a big green board with lots of tiny pathways called circuits. Every part of your computer 
+                                plugs into the motherboard - the CPU, RAM, GPU, and storage all connect here to work as a team!
+                            </p>
+                        </div>
+                        <div class="fun-fact-container">
+                            <button class="fun-fact-btn" onclick="toggleFunFact('motherboard-fact')">
+                                💡 Fun Fact!
+                            </button>
+                            <div id="motherboard-fact" class="fun-fact hidden">
+                                A motherboard can have thousands of tiny connections! The pathways are so small that you 
+                                could fit hundreds of them in the width of a human hair. They're made with real gold because 
+                                gold never rusts!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Power Supply Section -->
+        <section id="power" class="section hardware-section">
+            <div class="container">
+                <div class="hardware-card">
+                    <div class="card-header">
+                        <div class="icon">🔋</div>
+                        <h2>Power Supply – The Computer's Heart</h2>
+                    </div>
+                    <div class="card-content">
+                        <div class="description">
+                            <p>
+                                The Power Supply Unit (PSU) is like the heart of your computer! Just like your heart pumps 
+                                blood to every part of your body, the PSU sends electricity to every part of your computer 
+                                to keep it alive and working.
+                            </p>
+                            <p>
+                                It takes the electricity from your wall outlet (which is too strong) and makes it just the 
+                                right amount for each computer part. Different parts need different amounts of power, and 
+                                the PSU makes sure everyone gets exactly what they need!
+                            </p>
+                        </div>
+                        <div class="fun-fact-container">
+                            <button class="fun-fact-btn" onclick="toggleFunFact('power-fact')">
+                                💡 Fun Fact!
+                            </button>
+                            <div id="power-fact" class="fun-fact hidden">
+                                Your wall outlet provides 120V of electricity, but computer parts only need 3V, 5V, or 12V! 
+                                The PSU is like a transformer that changes dangerous electricity into safe, usable power for 
+                                your computer.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Inside the Computer Guide. Made with ❤️ for curious minds!</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
