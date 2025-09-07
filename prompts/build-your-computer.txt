@@ -1,0 +1,5 @@
+i want a section on my website that allows users to build their own computer. 
+i want to be able to select the components they want to use and see the total cost.
+i want to be able to see the components in a 3d model of a computer.
+i want to see average fps in a few games like fortnite, apex legends, and csgo. 
+use default settings for the games and use the web to find the average fps for the games.

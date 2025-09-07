@@ -452,12 +452,345 @@ document.addEventListener('DOMContentLoaded', function() {
     setTimeout(initializeMouseTracking, 1000);
 });
 
+// PC Builder functionality
+let currentBuild = {
+    cpu: null,
+    gpu: null,
+    ram: null,
+    storage: null,
+    motherboard: null,
+    psu: null
+};
+
+// Component database with realistic pricing and performance data
+const componentDatabase = {
+    cpu: [
+        { id: 'intel-i5-13600k', name: 'Intel Core i5-13600K', price: 319, performance: 85, cores: 14, threads: 20 },
+        { id: 'intel-i7-13700k', name: 'Intel Core i7-13700K', price: 419, performance: 95, cores: 16, threads: 24 },
+        { id: 'intel-i9-13900k', name: 'Intel Core i9-13900K', price: 589, performance: 100, cores: 24, threads: 32 },
+        { id: 'amd-ryzen5-7600x', name: 'AMD Ryzen 5 7600X', price: 299, performance: 82, cores: 6, threads: 12 },
+        { id: 'amd-ryzen7-7700x', name: 'AMD Ryzen 7 7700X', price: 399, performance: 92, cores: 8, threads: 16 },
+        { id: 'amd-ryzen9-7900x', name: 'AMD Ryzen 9 7900X', price: 549, performance: 98, cores: 12, threads: 24 }
+    ],
+    gpu: [
+        { id: 'rtx-4060', name: 'NVIDIA RTX 4060', price: 299, performance: 70, vram: 8, tier: 'mid' },
+        { id: 'rtx-4060ti', name: 'NVIDIA RTX 4060 Ti', price: 399, performance: 78, vram: 16, tier: 'mid' },
+        { id: 'rtx-4070', name: 'NVIDIA RTX 4070', price: 599, performance: 85, vram: 12, tier: 'high' },
+        { id: 'rtx-4070ti', name: 'NVIDIA RTX 4070 Ti', price: 799, performance: 92, vram: 12, tier: 'high' },
+        { id: 'rtx-4080', name: 'NVIDIA RTX 4080', price: 1199, performance: 98, vram: 16, tier: 'ultra' },
+        { id: 'rx-7600', name: 'AMD RX 7600', price: 269, performance: 68, vram: 8, tier: 'mid' },
+        { id: 'rx-7700xt', name: 'AMD RX 7700 XT', price: 449, performance: 80, vram: 12, tier: 'mid' },
+        { id: 'rx-7800xt', name: 'AMD RX 7800 XT', price: 499, performance: 87, vram: 16, tier: 'high' },
+        { id: 'rx-7900xt', name: 'AMD RX 7900 XT', price: 899, performance: 95, vram: 20, tier: 'ultra' }
+    ],
+    ram: [
+        { id: 'ddr4-16gb-3200', name: '16GB DDR4-3200 (2x8GB)', price: 89, capacity: 16, speed: 3200, type: 'DDR4' },
+        { id: 'ddr4-32gb-3200', name: '32GB DDR4-3200 (2x16GB)', price: 179, capacity: 32, speed: 3200, type: 'DDR4' },
+        { id: 'ddr5-16gb-5600', name: '16GB DDR5-5600 (2x8GB)', price: 129, capacity: 16, speed: 5600, type: 'DDR5' },
+        { id: 'ddr5-32gb-5600', name: '32GB DDR5-5600 (2x16GB)', price: 249, capacity: 32, speed: 5600, type: 'DDR5' },
+        { id: 'ddr5-32gb-6000', name: '32GB DDR5-6000 (2x16GB)', price: 299, capacity: 32, speed: 6000, type: 'DDR5' }
+    ],
+    storage: [
+        { id: 'nvme-500gb', name: '500GB NVMe SSD', price: 59, capacity: 500, type: 'NVMe', speed: 3500 },
+        { id: 'nvme-1tb', name: '1TB NVMe SSD', price: 99, capacity: 1000, type: 'NVMe', speed: 3500 },
+        { id: 'nvme-2tb', name: '2TB NVMe SSD', price: 199, capacity: 2000, type: 'NVMe', speed: 3500 },
+        { id: 'sata-1tb', name: '1TB SATA SSD', price: 79, capacity: 1000, type: 'SATA', speed: 550 },
+        { id: 'hdd-2tb', name: '2TB HDD 7200RPM', price: 59, capacity: 2000, type: 'HDD', speed: 150 }
+    ],
+    motherboard: [
+        { id: 'b550-amd', name: 'AMD B550 Motherboard', price: 129, socket: 'AM4', chipset: 'B550', features: ['WiFi', 'Bluetooth'] },
+        { id: 'x570-amd', name: 'AMD X570 Motherboard', price: 199, socket: 'AM4', chipset: 'X570', features: ['WiFi', 'Bluetooth', 'PCIe 4.0'] },
+        { id: 'b760-intel', name: 'Intel B760 Motherboard', price: 149, socket: 'LGA1700', chipset: 'B760', features: ['WiFi', 'Bluetooth'] },
+        { id: 'z790-intel', name: 'Intel Z790 Motherboard', price: 249, socket: 'LGA1700', chipset: 'Z790', features: ['WiFi', 'Bluetooth', 'Overclocking'] }
+    ],
+    psu: [
+        { id: 'psu-650w-bronze', name: '650W 80+ Bronze PSU', price: 89, wattage: 650, efficiency: 'Bronze', modular: false },
+        { id: 'psu-750w-gold', name: '750W 80+ Gold PSU', price: 129, wattage: 750, efficiency: 'Gold', modular: true },
+        { id: 'psu-850w-gold', name: '850W 80+ Gold PSU', price: 159, wattage: 850, efficiency: 'Gold', modular: true },
+        { id: 'psu-1000w-platinum', name: '1000W 80+ Platinum PSU', price: 219, wattage: 1000, efficiency: 'Platinum', modular: true }
+    ]
+};
+
+// FPS estimation data based on real-world benchmarks
+const fpsDatabase = {
+    fortnite: {
+        // Base FPS for different GPU tiers at 1080p High settings
+        baseFps: { low: 45, mid: 85, high: 120, ultra: 165 },
+        cpuMultiplier: 0.15, // CPU impact on FPS
+        ramMultiplier: 0.05  // RAM impact on FPS
+    },
+    apex: {
+        baseFps: { low: 40, mid: 75, high: 110, ultra: 150 },
+        cpuMultiplier: 0.12,
+        ramMultiplier: 0.04
+    },
+    csgo: {
+        baseFps: { low: 120, mid: 200, high: 300, ultra: 450 },
+        cpuMultiplier: 0.25, // CS:GO is more CPU dependent
+        ramMultiplier: 0.08
+    }
+};
+
+// Initialize PC Builder
+function initializePCBuilder() {
+    populateComponentDropdowns();
+    setupEventListeners();
+    updateTotalCost();
+    updateFPSEstimates();
+}
+
+// Populate dropdown menus with components
+function populateComponentDropdowns() {
+    Object.keys(componentDatabase).forEach(componentType => {
+        const dropdown = document.getElementById(`${componentType}-select`);
+        if (dropdown) {
+            componentDatabase[componentType].forEach(component => {
+                const option = document.createElement('option');
+                option.value = component.id;
+                option.textContent = `${component.name} - $${component.price}`;
+                dropdown.appendChild(option);
+            });
+        }
+    });
+}
+
+// Setup event listeners for component selection
+function setupEventListeners() {
+    // Component selection listeners
+    Object.keys(componentDatabase).forEach(componentType => {
+        const dropdown = document.getElementById(`${componentType}-select`);
+        if (dropdown) {
+            dropdown.addEventListener('change', function() {
+                handleComponentSelection(componentType, this.value);
+            });
+        }
+    });
+    
+    // Clear build button
+    const clearBtn = document.getElementById('clear-build');
+    if (clearBtn) {
+        clearBtn.addEventListener('click', clearBuild);
+    }
+}
+
+// Handle component selection
+function handleComponentSelection(componentType, componentId) {
+    if (componentId) {
+        const component = componentDatabase[componentType].find(c => c.id === componentId);
+        currentBuild[componentType] = component;
+        
+        // Update price display
+        const priceElement = document.getElementById(`${componentType}-price`);
+        if (priceElement && component) {
+            priceElement.textContent = `$${component.price}`;
+        }
+        
+        // Show component in 3D visualization
+        showBuilderComponent(componentType);
+    } else {
+        currentBuild[componentType] = null;
+        const priceElement = document.getElementById(`${componentType}-price`);
+        if (priceElement) {
+            priceElement.textContent = '$0';
+        }
+        hideBuilderComponent(componentType);
+    }
+    
+    updateTotalCost();
+    updateFPSEstimates();
+}
+
+// Show component in 3D builder visualization
+function showBuilderComponent(componentType) {
+    const componentElement = document.getElementById(`builder-${componentType === 'motherboard' ? 'mb' : componentType}`);
+    if (componentElement) {
+        componentElement.style.display = 'block';
+        componentElement.style.opacity = '0';
+        componentElement.style.transform = 'translateY(20px)';
+        
+        setTimeout(() => {
+            componentElement.style.transition = 'all 0.5s ease';
+            componentElement.style.opacity = '1';
+            componentElement.style.transform = 'translateY(0)';
+        }, 100);
+    }
+}
+
+// Hide component in 3D builder visualization
+function hideBuilderComponent(componentType) {
+    const componentElement = document.getElementById(`builder-${componentType === 'motherboard' ? 'mb' : componentType}`);
+    if (componentElement) {
+        componentElement.style.opacity = '0';
+        componentElement.style.transform = 'translateY(20px)';
+        
+        setTimeout(() => {
+            componentElement.style.display = 'none';
+        }, 500);
+    }
+}
+
+// Update total cost calculation
+function updateTotalCost() {
+    let totalCost = 0;
+    
+    Object.values(currentBuild).forEach(component => {
+        if (component) {
+            totalCost += component.price;
+        }
+    });
+    
+    const totalPriceElement = document.getElementById('total-price');
+    if (totalPriceElement) {
+        totalPriceElement.textContent = `$${totalCost.toLocaleString()}`;
+        
+        // Add animation effect
+        totalPriceElement.style.transform = 'scale(1.1)';
+        setTimeout(() => {
+            totalPriceElement.style.transform = 'scale(1)';
+        }, 200);
+    }
+}
+
+// Calculate and update FPS estimates
+function updateFPSEstimates() {
+    const games = ['fortnite', 'apex', 'csgo'];
+    
+    games.forEach(game => {
+        const fps = calculateGameFPS(game);
+        const fpsElement = document.getElementById(`${game}-fps`);
+        if (fpsElement) {
+            if (fps > 0) {
+                fpsElement.textContent = `${Math.round(fps)} FPS`;
+                fpsElement.style.color = getFPSColor(fps);
+            } else {
+                fpsElement.textContent = '-- FPS';
+                fpsElement.style.color = '#64748b';
+            }
+        }
+    });
+}
+
+// Calculate FPS for a specific game
+function calculateGameFPS(game) {
+    const { cpu, gpu, ram } = currentBuild;
+    
+    // Need at least CPU and GPU for FPS calculation
+    if (!cpu || !gpu) return 0;
+    
+    const gameData = fpsDatabase[game];
+    if (!gameData) return 0;
+    
+    // Get base FPS from GPU tier
+    let baseFps = gameData.baseFps[gpu.tier] || 0;
+    
+    // Apply CPU performance modifier
+    const cpuModifier = 1 + ((cpu.performance - 80) / 100) * gameData.cpuMultiplier;
+    baseFps *= cpuModifier;
+    
+    // Apply RAM performance modifier (if RAM is selected)
+    if (ram) {
+        const ramModifier = 1 + ((ram.speed - 3200) / 3200) * gameData.ramMultiplier;
+        baseFps *= ramModifier;
+        
+        // Bonus for adequate RAM capacity
+        if (ram.capacity >= 16) {
+            baseFps *= 1.05;
+        }
+        if (ram.capacity >= 32) {
+            baseFps *= 1.02;
+        }
+    }
+    
+    // Apply GPU performance scaling within tier
+    const gpuScaling = gpu.performance / 100;
+    baseFps *= (0.8 + 0.4 * gpuScaling); // Scale between 80% and 120% of base
+    
+    return Math.max(baseFps, 0);
+}
+
+// Get color based on FPS value
+function getFPSColor(fps) {
+    if (fps >= 120) return '#48bb78'; // Green - Excellent
+    if (fps >= 60) return '#ed8936';  // Orange - Good
+    if (fps >= 30) return '#e53e3e';  // Red - Playable
+    return '#64748b'; // Gray - Poor
+}
+
+// Clear the entire build
+function clearBuild() {
+    // Reset current build
+    Object.keys(currentBuild).forEach(componentType => {
+        currentBuild[componentType] = null;
+        
+        // Reset dropdowns
+        const dropdown = document.getElementById(`${componentType}-select`);
+        if (dropdown) {
+            dropdown.value = '';
+        }
+        
+        // Reset price displays
+        const priceElement = document.getElementById(`${componentType}-price`);
+        if (priceElement) {
+            priceElement.textContent = '$0';
+        }
+        
+        // Hide 3D components
+        hideBuilderComponent(componentType);
+    });
+    
+    updateTotalCost();
+    updateFPSEstimates();
+    
+    // Add visual feedback
+    const clearBtn = document.getElementById('clear-build');
+    if (clearBtn) {
+        clearBtn.textContent = '✅ Cleared!';
+        setTimeout(() => {
+            clearBtn.textContent = '🗑️ Clear Build';
+        }, 1500);
+    }
+}
+
+// Enhanced section navigation to include PC Builder
+function showBuilderSection() {
+    showSection('builder');
+    
+    // Initialize builder if not already done
+    if (!document.querySelector('#cpu-select option[value]')) {
+        setTimeout(initializePCBuilder, 100);
+    }
+}
+
+// Add PC Builder to scroll navigation
+const originalScrollToSection = scrollToSection;
+function scrollToSection(sectionId) {
+    if (sectionId === 'builder') {
+        showBuilderSection();
+    } else {
+        originalScrollToSection(sectionId);
+    }
+}
+
+// Initialize PC Builder when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    // Add a small delay to ensure all elements are ready
+    setTimeout(() => {
+        if (document.getElementById('cpu-select')) {
+            initializePCBuilder();
+        }
+    }, 500);
+});
+
 // Export functions for testing (if needed)
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = {
         showSection,
         toggleFunFact,
         scrollToSection,
-        showPCInterior
+        showPCInterior,
+        initializePCBuilder,
+        handleComponentSelection,
+        calculateGameFPS,
+        clearBuild
     };
 }

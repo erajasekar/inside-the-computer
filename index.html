@@ -21,6 +21,7 @@
                     <li><a href="#storage" class="nav-link" data-section="storage">Storage</a></li>
                     <li><a href="#motherboard" class="nav-link" data-section="motherboard">Motherboard</a></li>
                     <li><a href="#power" class="nav-link" data-section="power">Power Supply</a></li>
+                    <li><a href="#builder" class="nav-link" data-section="builder">PC Builder</a></li>
                 </ul>
             </nav>
         </div>
@@ -380,6 +381,163 @@
                                 Your wall outlet provides 120V of electricity, but computer parts only need 3V, 5V, or 12V! 
                                 The PSU is like a transformer that changes dangerous electricity into safe, usable power for 
                                 your computer.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PC Builder Section -->
+        <section id="builder" class="section builder-section">
+            <div class="container">
+                <div class="builder-header">
+                    <h2>🔧 Build Your Dream PC</h2>
+                    <p>Select components to build your perfect computer and see real-time pricing and performance estimates!</p>
+                </div>
+                
+                <div class="builder-container">
+                    <!-- Component Selection Panel -->
+                    <div class="component-selection">
+                        <div class="selection-grid">
+                            <!-- CPU Selection -->
+                            <div class="component-selector">
+                                <h3>🧠 CPU</h3>
+                                <select id="cpu-select" class="component-dropdown">
+                                    <option value="">Choose a CPU...</option>
+                                </select>
+                                <div class="component-price" id="cpu-price">$0</div>
+                            </div>
+                            
+                            <!-- GPU Selection -->
+                            <div class="component-selector">
+                                <h3>🎮 GPU</h3>
+                                <select id="gpu-select" class="component-dropdown">
+                                    <option value="">Choose a GPU...</option>
+                                </select>
+                                <div class="component-price" id="gpu-price">$0</div>
+                            </div>
+                            
+                            <!-- RAM Selection -->
+                            <div class="component-selector">
+                                <h3>⚡ RAM</h3>
+                                <select id="ram-select" class="component-dropdown">
+                                    <option value="">Choose RAM...</option>
+                                </select>
+                                <div class="component-price" id="ram-price">$0</div>
+                            </div>
+                            
+                            <!-- Storage Selection -->
+                            <div class="component-selector">
+                                <h3>💾 Storage</h3>
+                                <select id="storage-select" class="component-dropdown">
+                                    <option value="">Choose Storage...</option>
+                                </select>
+                                <div class="component-price" id="storage-price">$0</div>
+                            </div>
+                            
+                            <!-- Motherboard Selection -->
+                            <div class="component-selector">
+                                <h3>🔌 Motherboard</h3>
+                                <select id="motherboard-select" class="component-dropdown">
+                                    <option value="">Choose Motherboard...</option>
+                                </select>
+                                <div class="component-price" id="motherboard-price">$0</div>
+                            </div>
+                            
+                            <!-- PSU Selection -->
+                            <div class="component-selector">
+                                <h3>🔋 Power Supply</h3>
+                                <select id="psu-select" class="component-dropdown">
+                                    <option value="">Choose PSU...</option>
+                                </select>
+                                <div class="component-price" id="psu-price">$0</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Build Summary -->
+                        <div class="build-summary">
+                            <h3>💰 Build Summary</h3>
+                            <div class="total-cost">
+                                <span>Total Cost: </span>
+                                <span id="total-price" class="price-display">$0</span>
+                            </div>
+                            <button id="clear-build" class="clear-btn">🗑️ Clear Build</button>
+                        </div>
+                    </div>
+                    
+                    <!-- 3D Visualization -->
+                    <div class="builder-visualization">
+                        <div class="builder-pc-case">
+                            <h3>🖥️ Your Build</h3>
+                            <div class="builder-3d-container">
+                                <!-- Enhanced 3D PC Case for Builder -->
+                                <div class="builder-pc" id="builder-pc">
+                                    <!-- Case Frame -->
+                                    <div class="builder-case-frame">
+                                        <div class="builder-case-panel"></div>
+                                    </div>
+                                    
+                                    <!-- Dynamic Components -->
+                                    <div class="builder-motherboard" id="builder-mb">
+                                        <div class="builder-mb-base"></div>
+                                    </div>
+                                    
+                                    <div class="builder-cpu" id="builder-cpu" style="display: none;">
+                                        <div class="builder-cpu-body"></div>
+                                        <div class="builder-cpu-cooler"></div>
+                                    </div>
+                                    
+                                    <div class="builder-gpu" id="builder-gpu" style="display: none;">
+                                        <div class="builder-gpu-body"></div>
+                                    </div>
+                                    
+                                    <div class="builder-ram" id="builder-ram" style="display: none;">
+                                        <div class="builder-ram-stick"></div>
+                                    </div>
+                                    
+                                    <div class="builder-storage" id="builder-storage" style="display: none;">
+                                        <div class="builder-ssd"></div>
+                                    </div>
+                                    
+                                    <div class="builder-psu" id="builder-psu" style="display: none;">
+                                        <div class="builder-psu-body"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Performance Estimates -->
+                        <div class="performance-panel">
+                            <h3>🎯 Gaming Performance</h3>
+                            <div class="fps-estimates">
+                                <div class="game-fps">
+                                    <div class="game-info">
+                                        <span class="game-name">🏗️ Fortnite</span>
+                                        <span class="game-settings">1080p High</span>
+                                    </div>
+                                    <div class="fps-value" id="fortnite-fps">-- FPS</div>
+                                </div>
+                                
+                                <div class="game-fps">
+                                    <div class="game-info">
+                                        <span class="game-name">🎯 Apex Legends</span>
+                                        <span class="game-settings">1080p High</span>
+                                    </div>
+                                    <div class="fps-value" id="apex-fps">-- FPS</div>
+                                </div>
+                                
+                                <div class="game-fps">
+                                    <div class="game-info">
+                                        <span class="game-name">💥 CS:GO</span>
+                                        <span class="game-settings">1080p High</span>
+                                    </div>
+                                    <div class="fps-value" id="csgo-fps">-- FPS</div>
+                                </div>
+                            </div>
+                            
+                            <div class="performance-note">
+                                <p><strong>Note:</strong> FPS estimates are based on average performance benchmarks at 1080p resolution with high settings. Actual performance may vary.</p>
                             </div>
                         </div>
                     </div>
